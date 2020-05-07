@@ -1,0 +1,11 @@
+{
+  "name": "typeorm-express-rest-scaffold",
+  "version": "0.0.1",
+  "description": "Generate route methods that can be registered with Express from TypeORM models.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
