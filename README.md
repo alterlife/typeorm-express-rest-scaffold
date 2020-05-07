@@ -9,6 +9,11 @@ What is this
 
 typeorm-express-rest-scaffold is a library to quickly build a REST service from your TypeORM model by generating a handler function that can do find or create on a model.
 
+For example to GET a user, instead of writing an express handler and writing code to find a user and handle errors you would call ServiceBuilder, pass it your model name and let it know what parameters to expect:
+
+	  app.get('/:id', ServiceBuilder.findOne(User, ["id"]) )	// Route to find one user, accepting id as a parameter
+	  
+The service builder returns a function that finds a matching user and returns it, or fails with a 404 and it can be registered using app.get.
 
 How to use
 ----------
@@ -44,8 +49,8 @@ Finally update the index.ts file to initialize your express application and add 
 	  const app = express()
 	  const port = 3000
 	
-	  app.get('/', ServiceBuilder.findOne(User, ["id"]) )	// Route to find one user, accepting id as a parameter
-	  app.get('/', ServiceBuilder.findAll(User, ["firstName"]) )	// Route to all users given a first name.
+	  app.get('/:id', ServiceBuilder.findOne(User, ["id"]) )	// Route to find one user, accepting id as a parameter
+	  app.get('/:firstname', ServiceBuilder.findAll(User, ["firstName"]) )	// Route to all users given a first name.
 	
 	  app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
 	
