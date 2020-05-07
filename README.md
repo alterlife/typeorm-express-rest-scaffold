@@ -11,7 +11,7 @@ typeorm-express-rest-scaffold is a library to quickly build a REST service from 
 
 For example to GET a user, instead of writing an express handler and writing code to find a user and handle errors you would call ServiceBuilder, pass it your model name and let it know what parameters to expect:
 
-	  app.get('/:id', ServiceBuilder.findOne(User, ["id"]) )	// Route to find one user, accepting id as a parameter
+	  app.get('/:id', ServiceBuilder.findOne(User, ["id"]) ) // Route to find one user, accepting id as a parameter
 	  
 The service builder returns a function that finds a matching user and returns it, or fails with a 404 and it can be registered using app.get.
 
@@ -49,8 +49,8 @@ Finally update the index.ts file to initialize your express application and add 
 	  const app = express()
 	  const port = 3000
 	
-	  app.get('/:id', ServiceBuilder.findOne(User, ["id"]) )	// Route to find one user, accepting id as a parameter
-	  app.get('/:firstname', ServiceBuilder.findAll(User, ["firstName"]) )	// Route to all users given a first name.
+	  app.get('/:id', ServiceBuilder.findOne(User, ["id"]) ) // Route to find one user, accepting id as a parameter
+	  app.get('/:firstname', ServiceBuilder.findAll(User, ["firstName"]) ) // Route to all users given a first name.
 	
 	  app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
 	
@@ -66,19 +66,19 @@ How does it work
 
 Each of the functions under ServiceBuilder is a function that returns a handler function that can be registered with app.get in Express. For example:
 
-	    static findOne(Model: typeof BaseEntity, params:string[]=["id"])  	// findone accepts the model and a list of parameters that the route handler can take. 
+	    static findOne(Model: typeof BaseEntity, params:string[]=["id"]) // findone accepts the model and a list of parameters that the route handler can take. 
 	                : (request:Request, response:Response) => Promise<void> {
 	
-	        return async (request:Request, response:Response) => {			// We extract the parameters that we are interested in
+	        return async (request:Request, response:Response) => { // We extract the parameters that we are interested in
 	            const searchParams = {
 	                ... filterKeys(request.params, params),
 	                ... filterKeys(request.query, params)
 	            }
 	
-	            try {														// Try to find a matching model
-	                response.send(await Model.findOneOrFail(searchParams)) 	// and return it if a match exists.
+	            try { // Try to find a matching row
+	                response.send(await Model.findOneOrFail(searchParams)) // and return it if a match exists.
 	            } catch(e) {
-	                response.send(404) 										// or return a 404 if one does not.
+	                response.send(404) // or return a 404 if one does not.
 	            }
 	            response.end()
 	        }
